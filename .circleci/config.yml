@@ -67,7 +67,7 @@ jobs:
                         {"type": "test", "release": "patch"},
                         {"type": "ci", "release": "patch"},
                         {"type": "build", "release": "patch"}
-                    ]
+                    ],
                     "presetConfig": {
                           "types": [
                               {"type": "feat", "section": "Features"},
