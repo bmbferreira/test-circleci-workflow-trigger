@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  auto-semver: orbies/auto-semver@1.0.1
-
 jobs:
   build:
     parameters:
@@ -14,7 +11,41 @@ jobs:
     steps:
       - checkout
       - run: echo "<< parameters.output >>"
-
+  calculate-semver:
+    docker:
+      - image: circleci/node:14
+    resource_class: small
+    parameters:
+      default_branch:
+        type: string
+        default: "master"
+    steps:
+      - checkout
+      - run:
+          name: Create package.json
+          command: |
+            FILE=package.json
+            if [ -f "$FILE" ]; then
+              echo "$FILE exists. Will skip it, please add @semantic-release/commit-analyzer the plugin to calculate semver."
+            else 
+              echo "The file $FILE does not exist, will create it."
+              cat >$FILE \<<EOL
+                {
+                  "release": {
+                    "plugins": [
+                      "@semantic-release/commit-analyzer",
+                      "@semantic-release/release-notes-generator",
+                      "@semantic-release/github"
+                    ],
+                    "branch": "<< parameters.default_branch >>"
+                  }
+                }
+            EOL
+            fi
+      - run: npm install
+      - run: 
+          name: Calculate semver 
+          command: npx semantic-release 
 workflows:
   version: 2
   untagged-build:
@@ -24,9 +55,7 @@ workflows:
             branches:
               only: master
           output: "i don't run by tag"
-      - auto-semver/calculate-version:
-          name: calculate_version
-          current_branch: << pipeline.git.branch >>
+      - calculate-semver
   tagged-build:
     #when: << pipeline.parameters.version >>
     jobs:
@@ -35,6 +64,8 @@ workflows:
             tags:
               only: /^v.*/
               #only: /^v<< pipeline.parameters.version >>/
+            branches:
+              ignore: /.*/
           output: "my tag is $CIRCLE_TAG" # run the `echo` command
 
 parameters:
