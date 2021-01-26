@@ -60,6 +60,7 @@ jobs:
                               {"type": "feat", "section": "Features"},
                               {"type": "fix", "section": "Bug Fixes"},
                               {"type": "chore", "section": "Others"},
+                              {"type": "docs", "section": "Documentation"},
                               {"type": "style", "section": "Others"},
                               {"type": "refactor", "section": "Others"},
                               {"type": "perf", "section": "Performance Improvements"},
