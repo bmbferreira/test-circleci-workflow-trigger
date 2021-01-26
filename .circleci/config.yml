@@ -26,7 +26,8 @@ workflows:
       - build:
           filters:
             tags:
-              only: /^v<< pipeline.parameters.version >>/
+              only: /^v.*/
+              #only: /^v<< pipeline.parameters.version >>/
           output: "my tag is << pipeline.parameters.version >>" # run the `echo` command
 
 parameters:
