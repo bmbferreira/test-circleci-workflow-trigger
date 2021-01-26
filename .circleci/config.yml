@@ -20,6 +20,9 @@ workflows:
             branches:
               only: master
           output: "i don't run by tag"
+      - auto-semver/calculate-version:
+          name: calculate_version
+          current_branch: << pipeline.git.branch >>
   tagged-build:
     #when: << pipeline.parameters.version >>
     jobs:
