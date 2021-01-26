@@ -1,0 +1,34 @@
+version: 2.1
+jobs:
+  build:
+    parameters:
+      output:
+        type: string
+    docker:
+      - image: cimg/base:2020.01
+    resource_class: small
+    steps:
+      - run: echo "<< parameters.output >>"
+
+workflows:
+  version: 2
+  untagged-build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+          output: "i don't run by tag"
+  tagged-build:
+    when: << pipeline.parameters.version >>
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^v<< pipeline.parameters.version >>/
+          output: "my tag is << pipeline.parameters.version >>" # run the `echo` command
+
+parameters:
+  version:
+    type: string
+    default: ""
