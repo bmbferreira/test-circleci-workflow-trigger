@@ -11,6 +11,25 @@ jobs:
     steps:
       - checkout
       - run: echo "<< parameters.output >>"
+  check-if-tag-exists-in-default-branch:
+    docker:
+      - image: circleci/node:14
+    resource_class: small
+    parameters:
+      default_branch:
+        type: string
+        default: "master"
+    steps:
+      - checkout
+      - run:
+          name: Check if tag exists in default branch
+          command: | 
+            if [[ $(git tag $CIRCLE_TAG --merged origin/<< parameters.default_branch >>) == $CIRCLE_TAG ]]; then
+              echo "The tag $CIRCLE_TAG exists in the origin/<< parameters.default_branch >> branch. The deploy will be done."
+            else
+              echo "The tag $CIRCLE_TAG does not exist in the origin/<< parameters.default_branch >> branch. The deploy will not be done."
+              exit 1
+            fi 
   calculate-semver:
     docker:
       - image: circleci/node:14
@@ -59,14 +78,21 @@ workflows:
   tagged-build:
     #when: << pipeline.parameters.version >>
     jobs:
+      - check-if-tag-exists-in-default-branch:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - build:
           filters:
             tags:
               only: /^v.*/
-              #only: /^v<< pipeline.parameters.version >>/
             branches:
               ignore: /.*/
           output: "my tag is $CIRCLE_TAG" # run the `echo` command
+          requires:
+            - check-if-tag-exists-in-default-branch
 
 parameters:
   version:
