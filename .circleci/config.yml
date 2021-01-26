@@ -7,6 +7,7 @@ commands:
         type: string
         default: "master"
     steps:
+      - checkout
       - run:
           name: Check if tag exists in default branch
           command: | 
