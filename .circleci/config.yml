@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Check if tag exists in default branch
           command: | 
-            if [[ $(git tag $CIRCLE_TAG --merged origin/<< parameters.default_branch >>) == $CIRCLE_TAG ]]; then
+            if [[ $(git tag -l $CIRCLE_TAG --merged origin/<< parameters.default_branch >>) == $CIRCLE_TAG ]]; then
               echo "The tag $CIRCLE_TAG exists in the origin/<< parameters.default_branch >> branch. The deploy will be done."
             else
               echo "The tag $CIRCLE_TAG does not exist in the origin/<< parameters.default_branch >> branch. The deploy will not be done."
