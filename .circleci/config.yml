@@ -51,15 +51,23 @@ jobs:
                 {
                   "release": {
                     "plugins": [
-                      ["@semantic-release/commit-analyzer", {
-                       "releaseRules": [
-                          {"type": "docs", "release": "patch"}
-                       ]
-                       }],
+                      "@semantic-release/commit-analyzer,
                       "@semantic-release/release-notes-generator",
                       "@semantic-release/github"
                     ],
                     "preset": "conventionalcommits",
+                    "releaseRules": [
+                        {"type": "docs", "release": "patch"}
+                        {"type": "feat", "release": "minor"},
+                        {"type": "fix", "release": "patch"},
+                        {"type": "docs", "release": "patch"},
+                        {"type": "style", "release": "patch"},
+                        {"type": "refactor", "release": "patch"},
+                        {"type": "perf", "release": "patch"},
+                        {"type": "test", "release": "patch"},
+                        {"type": "ci", "release": "patch"},
+                        {"type": "build", "release": "patch"}
+                    ]
                     "presetConfig": {
                           "types": [
                               {"type": "feat", "section": "Features"},
@@ -69,7 +77,9 @@ jobs:
                               {"type": "style", "section": "Others"},
                               {"type": "refactor", "section": "Others"},
                               {"type": "perf", "section": "Performance Improvements"},
-                              {"type": "test", "section": "Others"}
+                              {"type": "test", "section": "Others"},
+                              {"type": "ci", "section": "Others"},
+                              {"type": "build", "section": "Others"}
                           ]
                       },
                     "branch": "<< parameters.default_branch >>"
