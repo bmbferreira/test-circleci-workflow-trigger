@@ -21,14 +21,14 @@ workflows:
               only: master
           output: "i don't run by tag"
   tagged-build:
-    when: << pipeline.parameters.version >>
+    #when: << pipeline.parameters.version >>
     jobs:
       - build:
           filters:
             tags:
               only: /^v.*/
               #only: /^v<< pipeline.parameters.version >>/
-          output: "my tag is << pipeline.parameters.version >>" # run the `echo` command
+          output: "my tag is $CIRCLE_TAG" # run the `echo` command
 
 parameters:
   version:
