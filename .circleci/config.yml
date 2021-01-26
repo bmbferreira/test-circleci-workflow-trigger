@@ -28,26 +28,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: echo "<< parameters.output >>"
-  check-if-tag-exists-in-default-branch:
-    docker:
-      - image: circleci/node:14
-    resource_class: small
-    parameters:
-      default_branch:
-        type: string
-        default: "master"
-    steps:
-      - checkout
-      - run:
-          name: Check if tag exists in default branch
-          command: | 
-            if [[ $(git tag -l $CIRCLE_TAG --merged origin/<< parameters.default_branch >>) == $CIRCLE_TAG ]]; then
-              echo "The tag $CIRCLE_TAG exists in the origin/<< parameters.default_branch >> branch. The deploy will be done."
-            else
-              echo "The tag $CIRCLE_TAG does not exist in the origin/<< parameters.default_branch >> branch. The deploy will not be done."
-              exit 1
-            fi 
+      - run: echo "<< parameters.output >>" 
   calculate-semver:
     docker:
       - image: circleci/node:14
@@ -70,7 +51,12 @@ jobs:
                 {
                   "release": {
                     "plugins": [
-                      "@semantic-release/commit-analyzer",
+                      "@semantic-release/commit-analyzer", {
+                        "preset": "conventionalcommits",
+                        "releaseRules": [
+                          {"type": "docs", release": "patch"}
+                        ]
+                      }],
                       "@semantic-release/release-notes-generator",
                       "@semantic-release/github"
                     ],
