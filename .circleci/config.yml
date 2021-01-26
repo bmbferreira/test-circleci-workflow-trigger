@@ -54,8 +54,13 @@ jobs:
                       ["@semantic-release/commit-analyzer", {
                        "releaseRules": [
                           {"type": "docs", "release": "patch"}
-                       ],
-                       "presetConfig": {
+                       ]
+                       }],
+                      "@semantic-release/release-notes-generator",
+                      "@semantic-release/github"
+                    ],
+                    "preset": "conventionalcommits",
+                    "presetConfig": {
                           "types": [
                               {"type": "feat", "section": "Features"},
                               {"type": "fix", "section": "Bug Fixes"},
@@ -66,12 +71,7 @@ jobs:
                               {"type": "perf", "section": "Performance Improvements"},
                               {"type": "test", "section": "Others"}
                           ]
-                        }
-                       }],
-                      "@semantic-release/release-notes-generator",
-                      "@semantic-release/github"
-                    ],
-                    "preset": "conventionalcommits",
+                      },
                     "branch": "<< parameters.default_branch >>"
                   }
                 }
