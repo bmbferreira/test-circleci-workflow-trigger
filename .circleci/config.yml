@@ -15,7 +15,7 @@ commands:
               echo "The tag $CIRCLE_TAG exists in the origin/<< parameters.default_branch >> branch. The deploy will be done."
             else
               echo "The tag $CIRCLE_TAG does not exist in the origin/<< parameters.default_branch >> branch. The deploy will not be done."
-              exit 1
+              circleci-agent step halt 
             fi
   
 jobs:
