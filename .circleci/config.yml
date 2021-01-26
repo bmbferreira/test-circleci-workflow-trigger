@@ -51,7 +51,7 @@ jobs:
                 {
                   "release": {
                     "plugins": [
-                      ["@semantic-release/commit-analyzer", {preset: 'conventionalcommits'}],
+                      ["@semantic-release/commit-analyzer", {"preset": "conventionalcommits"}],
                       "@semantic-release/release-notes-generator",
                       "@semantic-release/github"
                     ],
@@ -66,8 +66,7 @@ jobs:
                         {"type": "perf", "release": "patch"},
                         {"type": "test", "release": "patch"},
                         {"type": "ci", "release": "patch"},
-                        {"type": "build", "release": "patch"},
-                        {"type": "*", "release": "major"}
+                        {"type": "build", "release": "patch"}
                     ],
                     "presetConfig": {
                           "types": [
