@@ -65,7 +65,10 @@ jobs:
                             {"type": "test", "release": "patch"},
                             {"type": "ci", "release": "patch"},
                             {"type": "build", "release": "patch"}
-                        ]
+                        ],
+                        "parserOpts": {
+                            "noteKeywords": ["!"]
+                          }
                         }],
                       ["@semantic-release/release-notes-generator",{
                         "preset": "conventionalcommits",
