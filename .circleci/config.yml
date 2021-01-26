@@ -51,8 +51,7 @@ jobs:
                 {
                   "release": {
                     "plugins": [
-                      ["conventional-changelog-conventionalcommits",
-                       "@semantic-release/commit-analyzer", {
+                      ["@semantic-release/commit-analyzer", {
                        "releaseRules": [
                           {"type": "docs", "release": "patch"}
                        ],
@@ -78,6 +77,7 @@ jobs:
                 }
             EOL
             fi
+      - run: npm i conventional-changelog-conventionalcommits
       - run: npm install
       - run: 
           name: Calculate semver 
