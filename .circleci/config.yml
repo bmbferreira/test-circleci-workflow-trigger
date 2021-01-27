@@ -49,6 +49,9 @@ jobs:
               echo "The file $FILE does not exist, will create it."
               cat >$FILE \<<EOL
                 {
+                  "dependencies": {
+                    conventional-changelog-conventionalcommits
+                  }
                   "release": {
                     "plugins": [
                       ["@semantic-release/commit-analyzer", {
@@ -93,7 +96,7 @@ jobs:
                 }
             EOL
             fi
-      - run: npm i conventional-changelog-conventionalcommits
+      #- run: npm i conventional-changelog-conventionalcommits
       - run: npm install
       - run: 
           name: Calculate semver 
