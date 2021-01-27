@@ -54,9 +54,10 @@ jobs:
                   },
                   "release": {
                     "plugins": [
-                      ["@semantic-release/commit-analyzer: 8.0.1", {
+                      ["@semantic-release/commit-analyzer", {
                         "preset": "conventionalcommits",
                         "releaseRules": [
+                            {"type": "feat!", "release": "major"},
                             {"type": "docs", "release": "patch"},
                             {"type": "feat", "release": "minor"},
                             {"type": "fix", "release": "patch"},
@@ -67,10 +68,7 @@ jobs:
                             {"type": "test", "release": "patch"},
                             {"type": "ci", "release": "patch"},
                             {"type": "build", "release": "patch"}
-                        ],
-                        "parserOpts": {
-                            "noteKeywords": ["BREAKING CHANGE", "BREAKING"]
-                          }
+                        ]
                         }],
                       ["@semantic-release/release-notes-generator",{
                         "preset": "conventionalcommits",
