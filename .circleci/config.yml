@@ -54,7 +54,7 @@ jobs:
                   },
                   "release": {
                     "plugins": [
-                      ["@semantic-release/commit-analyzer", {
+                      ["@semantic-release/commit-analyzer": "8.0.1", {
                         "preset": "conventionalcommits",
                         "releaseRules": [
                             {"type": "docs", "release": "patch"},
