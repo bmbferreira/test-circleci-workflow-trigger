@@ -50,7 +50,11 @@ jobs:
               cat >$FILE \<<EOL
                 {
                   "dependencies": {
-                    "conventional-changelog-conventionalcommits": "4.5.0"
+                    "conventional-changelog-conventionalcommits": "4.5.0",
+                    "@semantic-release/github": "7.2.0",
+                    "@semantic-release/release-notes-generator": "9.0.1",
+                    "@semantic-release/commit-analyzer": "8.0.1",
+                    "semantic-release": "17.3.7"
                   },
                   "release": {
                     "preset": "conventionalcommits",
