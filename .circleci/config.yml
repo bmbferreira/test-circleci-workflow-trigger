@@ -114,7 +114,7 @@ workflows:
           output: "i don't run by tag"
       - calculate-semver
   tagged-build:
-    #when: << pipeline.parameters.version >>
+    when: << pipeline.git.tag >>
     jobs:
       - build:
           pre-steps:
