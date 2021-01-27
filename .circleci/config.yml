@@ -50,8 +50,8 @@ jobs:
               cat >$FILE \<<EOL
                 {
                   "dependencies": {
-                    conventional-changelog-conventionalcommits
-                  }
+                    "conventional-changelog-conventionalcommits": "4.5.0"
+                  },
                   "release": {
                     "plugins": [
                       ["@semantic-release/commit-analyzer", {
