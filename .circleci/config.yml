@@ -90,7 +90,7 @@ jobs:
                               {"type": "build", "section": "Others"}
                           ]
                         }
-                      }]
+                      }],
                       "@semantic-release/github"
                     ],
                     "branch": "<< parameters.default_branch >>"
